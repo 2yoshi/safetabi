@@ -166,6 +166,7 @@ GitHub Actions（cron）
 
 ## 未決定事項（要確認）
 
-- PoC対象自治体（地域）はまだ未選定
 - Supabase以外のストレージ選択肢は検討していない（現時点ではSupabase前提で進める）
 - 多言語翻訳の実装方式（LLM API直接呼び出し vs 既存翻訳API）は未確定
+
+> 注: PoC対象自治体は東京都（area_code: 130000）に確定済み。詳細は [decisions.md](./decisions.md) を参照。
