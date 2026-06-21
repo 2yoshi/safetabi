@@ -32,3 +32,20 @@
   - 国土地理院 避難場所 CSV: 東京都のレコードのみ抽出
   - 国土数値情報 ハザード SHP: 東京都の Shapefile のみ取得
 - **関連**: Issue #2
+
+---
+
+## 2026-06-21: 低頻度ハザードデータの配信方式を GitHub Pages + jsDelivr とする
+
+- **決定**: 低頻度更新のハザードポリゴン（洪水・土砂・津波）と避難場所一覧は、静的 GeoJSON としてビルドし **GitHub Pages + jsDelivr CDN** で配信する。ファイルは **災害種別 × 市区町村単位**で分割し、タイル化（PMTiles）は PoC では行わない
+- **代替案**: Cloudflare R2 + CDN（大容量向き）、Supabase Storage（既存インフラ統合）
+- **選定理由**:
+  - 完全無料で、既存の GitHub Actions パイプラインからコミットするだけで配置できる（追加の認証・SDK 不要）
+  - jsDelivr が HTTPS・CORS・圧縮を標準提供し、PWA から直接 fetch・キャッシュできる
+  - 東京都のみの PoC では市区町村分割で jsDelivr の 50MB/ファイル制限に十分収まる
+  - 将来は配置先 URL を差し替えるだけで Cloudflare R2 へ移行できる
+- **補足**:
+  - 高頻度・空間検索が必要なデータ（警報・避難場所近傍検索）は引き続き Supabase + PostGIS
+  - 更新検知は `manifest.json`（ファイル一覧 + 内容ハッシュ）を起点とし、本体はバージョン付き URL で長期キャッシュ
+  - タイル化（PMTiles）の移行閾値: 単一ファイル 10MB 超、または全国展開フェーズ
+- **関連**: Issue #5 / [cdn-geojson-design.md](./cdn-geojson-design.md)
