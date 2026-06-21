@@ -1,0 +1,27 @@
+# Supabase CLI 設定 (PoC)
+# 詳細: https://supabase.com/docs/guides/cli/config
+# `supabase link --project-ref <ref>` 後に `supabase db push` でマイグレーションを適用する。
+
+project_id = "safetabi-poc"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+# geometry 型を解決するため extensions スキーマを検索パスに含める
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+# ローカル開発 (supabase start) 用。実際のプロジェクトのバージョンに合わせること
+# (新規プロジェクトは 15 または 17。Dashboard > Database で確認)。リモートへの db push には影響しない。
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true

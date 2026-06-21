@@ -10,6 +10,7 @@
 safetabi/
 ├── app/             # スマホ / Web アプリ本体（将来実装）
 ├── data-collector/  # オープンデータ自動収集スクリプト（Python）
+├── supabase/        # DB マイグレーション（PostGIS・テーブル定義・RLS）
 ├── doc/             # 設計ドキュメント・引き継ぎ資料
 ├── .github/
 │   └── workflows/   # GitHub Actions（データ収集 cron 等）
@@ -50,6 +51,7 @@ safetabi/
 - [プロジェクト引き継ぎドキュメント](./doc/HANDOFF.md)
 - [意思決定の記録](./doc/decisions.md)
 - [CDN・静的 GeoJSON 配信設計](./doc/cdn-geojson-design.md)
+- [Supabase セットアップ・スキーマ定義](./supabase/README.md)
 
 ## ライセンス
 
