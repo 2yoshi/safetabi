@@ -26,6 +26,20 @@ supabase/
 
 座標系はすべて WGS84（SRID 4326）。空間検索カラムには GIST インデックスを付与済み。
 
+高頻度更新テーブルは収集スクリプトが冪等に upsert できるよう自然キー（UNIQUE 制約）を持つ:
+
+| テーブル | upsert キー |
+|---|---|
+| `warnings` | `(area_code, warning_type, issued_at)` |
+| `earthquakes` | `event_id` |
+| `evacuation_orders` | `(area_code, order_type, issued_at)` |
+| `shelters` | `gsi_id` |
+
+`warnings` / `shelters` は `content_hash` を持ち、未変更レコードの書き込みをスキップできる。
+
+`shelters.disaster_types` は災害種別の英小文字スラッグ配列で、表記揺れを防ぐため次の値に統一する:
+`flood`（洪水）, `landslide`（土砂災害）, `storm_surge`（高潮）, `earthquake`（地震）, `tsunami`（津波）, `fire`（大規模な火事）, `inland_flood`（内水氾濫）, `volcano`（火山現象）。
+
 ## セットアップ手順
 
 ### 1. Supabase プロジェクトの作成（手動）
@@ -56,6 +70,8 @@ CLI を使わない場合は、ダッシュボードの SQL Editor で `migratio
 
 PostGIS が有効か、テーブルが作成されたかを確認する:
 
+PostGIS の型・関数は `extensions` スキーマにあるため、search_path に依存しないようスキーマ修飾して記述している。
+
 ```sql
 -- PostGIS のバージョン確認
 select extensions.postgis_full_version();
@@ -63,13 +79,13 @@ select extensions.postgis_full_version();
 -- 近傍検索の動作確認（東京駅から半径 2km 以内の避難場所）
 select name, address,
        extensions.st_distance(
-         geom::geography,
-         extensions.st_setsrid(extensions.st_makepoint(139.7671, 35.6812), 4326)::geography
+         geom::extensions.geography,
+         extensions.st_setsrid(extensions.st_makepoint(139.7671, 35.6812), 4326)::extensions.geography
        ) as distance_m
 from public.shelters
 where extensions.st_dwithin(
-        geom::geography,
-        extensions.st_setsrid(extensions.st_makepoint(139.7671, 35.6812), 4326)::geography,
+        geom::extensions.geography,
+        extensions.st_setsrid(extensions.st_makepoint(139.7671, 35.6812), 4326)::extensions.geography,
         2000
       )
 order by distance_m;

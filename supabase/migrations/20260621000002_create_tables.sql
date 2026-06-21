@@ -30,10 +30,12 @@ create table public.warnings (
   source        text        not null default 'jma',
   content_hash  text,                                       -- 差分検出用 (取得スクリプトが書き込む)
   created_at    timestamptz not null default now(),
-  updated_at    timestamptz not null default now()
+  updated_at    timestamptz not null default now(),
+  -- 収集スクリプトの冪等な upsert 対象キー (5分毎ポーリングでの重複行を防ぐ)
+  unique (area_code, warning_type, issued_at)
 );
 
-comment on table public.warnings is '気象庁の警報・注意報。area_code 単位で更新される。';
+comment on table public.warnings is '気象庁の警報・注意報。area_code 単位で更新される。(area_code, warning_type, issued_at) で upsert する。';
 
 create index warnings_area_code_idx  on public.warnings (area_code);
 create index warnings_issued_at_idx  on public.warnings (issued_at desc);
@@ -77,10 +79,12 @@ create table public.evacuation_orders (
                 check (status in ('active', 'lifted')),   -- 発令中 / 解除済み
   issued_at   timestamptz not null,                       -- 発令時刻
   created_at  timestamptz not null default now(),
-  updated_at  timestamptz not null default now()
+  updated_at  timestamptz not null default now(),
+  -- 冪等な upsert 対象キー。order_type が null でも重複扱いとするため NULLS NOT DISTINCT を使う (PostgreSQL 15+)
+  unique nulls not distinct (area_code, order_type, issued_at)
 );
 
-comment on table public.evacuation_orders is '自治体の避難情報。status で発令中/解除を管理する。';
+comment on table public.evacuation_orders is '自治体の避難情報。status で発令中/解除を管理する。(area_code, order_type, issued_at) で upsert する。';
 
 create index evacuation_orders_area_code_idx on public.evacuation_orders (area_code);
 create index evacuation_orders_status_idx    on public.evacuation_orders (status);
@@ -98,14 +102,19 @@ create table public.shelters (
   name            text not null,                -- 施設名
   address         text,                         -- 住所
   geom            geometry(Point, 4326) not null, -- 位置 (必須)
-  disaster_types  text[] not null default '{}', -- 対応災害種別 (例: {flood, landslide, tsunami})
+  disaster_types  text[] not null default '{}', -- 対応災害種別 (許容値は下記コメント参照)
   capacity        integer,                      -- 収容人数 (不明なら null)
   is_designated   boolean not null default true, -- 指定緊急避難場所か
+  content_hash    text,                         -- 差分検出用 (日次取得で未変更ならスキップ)
   created_at      timestamptz not null default now(),
   updated_at      timestamptz not null default now()
 );
 
 comment on table public.shelters is '指定緊急避難場所。geom に GIST インデックスを付与し近傍検索に用いる。';
+-- disaster_types の許容値は災害種別の英小文字スラッグに統一する (収集スクリプト間での表記揺れ防止):
+--   flood (洪水), landslide (土砂災害), storm_surge (高潮), earthquake (地震),
+--   tsunami (津波), fire (大規模な火事), inland_flood (内水氾濫), volcano (火山現象)
+comment on column public.shelters.disaster_types is '対応災害種別の英小文字スラッグ配列: flood, landslide, storm_surge, earthquake, tsunami, fire, inland_flood, volcano';
 
 create index shelters_geom_gix           on public.shelters using gist (geom);
 create index shelters_disaster_types_gix on public.shelters using gin (disaster_types);
