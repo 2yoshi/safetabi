@@ -49,6 +49,7 @@ safetabi/
 
 - [プロジェクト引き継ぎドキュメント](./doc/HANDOFF.md)
 - [意思決定の記録](./doc/decisions.md)
+- [CDN・静的 GeoJSON 配信設計](./doc/cdn-geojson-design.md)
 
 ## ライセンス
 
