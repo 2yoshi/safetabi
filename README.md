@@ -53,6 +53,7 @@ safetabi/
 - [CDN・静的 GeoJSON 配信設計](./doc/cdn-geojson-design.md)
 - [Web アプリ ホスティング選定・設計](./doc/web-hosting-design.md)
 - [API サーバー構成設計](./doc/api-architecture-design.md)
+- [スケーリング方針（PoC → 全国展開）](./doc/scaling-strategy.md)
 - [Supabase セットアップ・スキーマ定義](./supabase/README.md)
 
 ## ライセンス

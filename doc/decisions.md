@@ -85,3 +85,18 @@
   - 移行容易性のため、クライアントのデータ取得処理は 1 モジュールに集約する
   - 中間 API レイヤー（B）への移行トリガー: BtoG/BtoB の認証・課金、マルチテナント、複雑な認可、濫用対策・レート制限、Supabase 非依存化。移行先は Cloudflare（Pages Functions / Workers）で基盤を分断しない
 - **関連**: Issue #4 / [api-architecture-design.md](./api-architecture-design.md)
+
+---
+
+## 2026-06-27: 全国展開のスケーリング方針を段階的ハイブリッド移行とする
+
+- **決定**: データ収集基盤は 3 フェーズで段階移行する。フェーズ1（東京都）= GitHub Actions 単体、フェーズ2（数自治体〜1県）= GitHub Actions + 処理分割、フェーズ3（全国）= **高頻度・軽量は Cloudflare Workers Cron / 低頻度・重い処理は GitHub Actions（またはコンテナ）のハイブリッド**
+- **代替案**: フェーズ3 を全面的に Cloud Run jobs に移行、または GitHub Actions のまま処理分割で押し切る
+- **重要な補正**: HANDOFF.md の「実行時間 月8,640分 > 無料枠2,000分」は **private リポジトリのみ**の制約。本リポジトリは現在 **public** で Actions 実行時間は無制限・無料のため、当面は「分の壁」ではなく **cron の遅延・信頼性、同時実行20上限、6時間/ジョブ、将来の private 化** が移行を駆動する
+- **選定理由**:
+  - 重い SHP→GeoJSON 変換（GDAL 依存）は Workers の CPU/実行時間/バイナリ制約に不向きで、Actions/コンテナに残すのが妥当
+  - 高頻度ポーリングは Cloudflare に寄せ、Pages / 将来の R2 とエッジ基盤を統一する
+- **コスト注記**: フェーズ3 の高頻度 Workers は無料枠の制約（1実行あたりサブリクエスト50 / CPU約10ms）に当たりやすく、実質 Workers Paid（$5/月）か実行分割が前提。全国規模では Supabase の有料プラン昇格も並行検討する
+- **移行トリガー**: フェーズ1→2 = 複数都道府県化 / ポーリング1巡90秒超 / SHP変換6時間接近。フェーズ2→3 = 同時実行20接近 / cron遅延で鮮度目標未達 / 全国規模ポーリング開始 / private化判断
+- **PoC 実装制約**: 取得ロジックは自治体非依存の独立関数、Web 標準 API でランタイム移植性確保、1ジョブ内ループで集約、頻度別 cron 分離、差分検出スキップ、状態はランナー外（Supabase）、シークレットは同名環境変数で統一
+- **関連**: Issue #6 / [scaling-strategy.md](./scaling-strategy.md)
