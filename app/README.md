@@ -8,7 +8,8 @@ SafeTabi のスマホ / Web アプリ本体。
 
 ## 想定する技術スタック
 
-- 未確定（Issue #3 ホスティング選定、Issue #7 UI 設計の結果を受けて決定）
+- **ホスティング**: Vercel（PoC）。詳細は [doc/web-hosting-design.md](../doc/web-hosting-design.md) 参照
+- **フレームワーク**: Next.js（PWA）を想定。UI の詳細は Issue #7 の結果を受けて確定
 
 ## ディレクトリ構成
 

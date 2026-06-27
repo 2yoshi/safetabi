@@ -49,3 +49,20 @@
   - 更新検知は `manifest.json`（ファイル一覧 + 内容ハッシュ）を起点とし、本体はバージョン付き URL で長期キャッシュ
   - タイル化（PMTiles）の移行閾値: 単一ファイル 10MB 超、または全国展開フェーズ
 - **関連**: Issue #5 / [cdn-geojson-design.md](./cdn-geojson-design.md)
+
+---
+
+## 2026-06-27: Web アプリのホスティングを Vercel とする
+
+- **決定**: PoC フェーズの Web アプリ（PWA）のホスティングは **Vercel（Hobby プラン）** とする。デプロイは Vercel の GitHub 連携で行い、`main` マージ = Production / PR = Preview。モノレポのため Root Directory は `app/`
+- **代替案**: Cloudflare Pages（Workers/R2 と統合・全国展開向き）、Firebase Hosting（FCM 純正統合）、GitHub Pages（静的のみ）
+- **選定理由**:
+  - Next.js との親和性が最も高く、PoC を最速で立ち上げられる（SSR/エッジ/PWA 配信が設定なしで動く）
+  - エッジ配信が標準で、訪日外国人の端末から低遅延でアクセスできる
+  - 無料の Hobby プランで PoC を運用できる
+  - プッシュ通知（FCM）はクライアント SDK で動作しホスティング先に依存しない
+- **トレードオフ・申し送り**:
+  - データ収集基盤はフェーズ3で Cloudflare Workers、CDN は将来 R2 への移行案があり、エッジ基盤の一貫性は次点
+  - **全国展開フェーズでは Cloudflare Pages（+ Workers / R2）への移行を再検討**する
+  - 移行コスト削減のため Vercel 固有機能（KV / Postgres / Edge Config 等）への依存を避け、状態は Supabase に寄せる
+- **関連**: Issue #3 / [web-hosting-design.md](./web-hosting-design.md)
