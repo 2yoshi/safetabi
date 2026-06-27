@@ -8,8 +8,8 @@ SafeTabi のスマホ / Web アプリ本体。
 
 ## 想定する技術スタック
 
-- **ホスティング**: Vercel（PoC）。詳細は [doc/web-hosting-design.md](../doc/web-hosting-design.md) 参照
-- **フレームワーク**: Next.js（PWA）を想定。UI の詳細は Issue #7 の結果を受けて確定
+- **ホスティング**: Cloudflare Pages（PoC・無料で商用利用可）。詳細は [doc/web-hosting-design.md](../doc/web-hosting-design.md) 参照
+- **フレームワーク**: Next.js（PWA）を `@cloudflare/next-on-pages` 経由で想定。UI の詳細は Issue #7 の結果を受けて確定
 
 ## ディレクトリ構成
 

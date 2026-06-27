@@ -52,17 +52,17 @@
 
 ---
 
-## 2026-06-27: Web アプリのホスティングを Vercel とする
+## 2026-06-27: Web アプリのホスティングを Cloudflare Pages とする
 
-- **決定**: PoC フェーズの Web アプリ（PWA）のホスティングは **Vercel（Hobby プラン）** とする。デプロイは Vercel の GitHub 連携で行い、`main` マージ = Production / PR = Preview。モノレポのため Root Directory は `app/`
-- **代替案**: Cloudflare Pages（Workers/R2 と統合・全国展開向き）、Firebase Hosting（FCM 純正統合）、GitHub Pages（静的のみ）
+- **決定**: PoC フェーズの Web アプリ（PWA）のホスティングは **Cloudflare Pages（無料プラン）** とする。デプロイは GitHub 連携で行い、`main` マージ = Production / PR = Preview。モノレポのため Root Directory は `app/`
+- **代替案**: Vercel（Next.js 純正だが Hobby は非商用限定）、Firebase Hosting（FCM 純正統合）、GitHub Pages（静的のみ）
 - **選定理由**:
-  - Next.js との親和性が最も高く、PoC を最速で立ち上げられる（SSR/エッジ/PWA 配信が設定なしで動く）
-  - エッジ配信が標準で、訪日外国人の端末から低遅延でアクセスできる
-  - 無料の Hobby プランで PoC を運用できる
+  - **無料プランで商用利用が許可されている**。SafeTabi は商用ベンチャーのため、Vercel Hobby（非商用限定）は無料運用では選外。コスト最小化方針と商用利用を両立できるのが決め手
+  - 帯域無制限・静的リクエスト無料でエッジ配信でき、PWA 配信もそのまま行える
+  - データ収集基盤（フェーズ3 = Workers cron）・CDN（将来 R2）と**エコシステムが一貫**し、エッジ基盤を一系統に統一できる
+  - 動的処理は Pages Functions（Workers 無料枠 10万リクエスト/日）で賄え、東京都 PoC 規模では十分
   - プッシュ通知（FCM）はクライアント SDK で動作しホスティング先に依存しない
 - **トレードオフ・申し送り**:
-  - データ収集基盤はフェーズ3で Cloudflare Workers、CDN は将来 R2 への移行案があり、エッジ基盤の一貫性は次点
-  - **全国展開フェーズでは Cloudflare Pages（+ Workers / R2）への移行を再検討**する
-  - 移行コスト削減のため Vercel 固有機能（KV / Postgres / Edge Config 等）への依存を避け、状態は Supabase に寄せる
+  - Next.js の親和性は Vercel ほど"設定ゼロ"ではなく、`@cloudflare/next-on-pages`（または OpenNext の Cloudflare アダプタ）を介する。実装は Web 標準 API / Edge ランタイムを基本とし、Node.js 固有 API への依存を最小化する
+  - 全国展開フェーズも Cloudflare（Pages / Workers / R2）を継続し、基盤分断を避ける
 - **関連**: Issue #3 / [web-hosting-design.md](./web-hosting-design.md)
