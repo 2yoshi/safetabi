@@ -80,6 +80,8 @@
   - サーバー実装が不要で PoC を最速に立ち上げられる
 - **補足・申し送り**:
   - クライアントには anon キーのみを渡す（service_role はアプリに載せない）
+  - 空間検索 RPC は `SECURITY INVOKER` で定義し RLS をバイパスしないこと（`SECURITY DEFINER` 禁止）
+  - anon キーは公開され Cloudflare の前段保護が効かないため、濫用・レート制限は Supabase 組み込みの範囲で運用し、本格対応時は中間 API（B）で制御する
   - 移行容易性のため、クライアントのデータ取得処理は 1 モジュールに集約する
-  - 中間 API レイヤー（B）への移行トリガー: BtoG/BtoB の認証・課金、マルチテナント、複雑な認可、Supabase 非依存化。移行先は Cloudflare（Pages Functions / Workers）で基盤を分断しない
+  - 中間 API レイヤー（B）への移行トリガー: BtoG/BtoB の認証・課金、マルチテナント、複雑な認可、濫用対策・レート制限、Supabase 非依存化。移行先は Cloudflare（Pages Functions / Workers）で基盤を分断しない
 - **関連**: Issue #4 / [api-architecture-design.md](./api-architecture-design.md)
