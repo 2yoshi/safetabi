@@ -49,3 +49,20 @@
   - 更新検知は `manifest.json`（ファイル一覧 + 内容ハッシュ）を起点とし、本体はバージョン付き URL で長期キャッシュ
   - タイル化（PMTiles）の移行閾値: 単一ファイル 10MB 超、または全国展開フェーズ
 - **関連**: Issue #5 / [cdn-geojson-design.md](./cdn-geojson-design.md)
+
+---
+
+## 2026-06-27: Web アプリのホスティングを Cloudflare Pages とする
+
+- **決定**: PoC フェーズの Web アプリ（PWA）のホスティングは **Cloudflare Pages（無料プラン）** とする。デプロイは GitHub 連携で行い、`main` マージ = Production / PR = Preview。モノレポのため Root Directory は `app/`
+- **代替案**: Vercel（Next.js 純正だが Hobby は非商用限定）、Firebase Hosting（FCM 純正統合）、GitHub Pages（静的のみ）
+- **選定理由**:
+  - **無料プランで商用利用が許可されている**。SafeTabi は商用ベンチャーのため、Vercel Hobby（非商用限定）は無料運用では選外。コスト最小化方針と商用利用を両立できるのが決め手
+  - 帯域無制限・静的リクエスト無料でエッジ配信でき、PWA 配信もそのまま行える
+  - データ収集基盤（フェーズ3 = Workers cron）・CDN（将来 R2）と**エコシステムが一貫**し、エッジ基盤を一系統に統一できる
+  - 動的処理は Pages Functions（Workers 無料枠 10万リクエスト/日）で賄え、東京都 PoC 規模では十分
+  - プッシュ通知（FCM）はクライアント SDK で動作しホスティング先に依存しない
+- **トレードオフ・申し送り**:
+  - Next.js の親和性は Vercel ほど"設定ゼロ"ではなく、`@cloudflare/next-on-pages`（または OpenNext の Cloudflare アダプタ）を介する。実装は Web 標準 API / Edge ランタイムを基本とし、Node.js 固有 API への依存を最小化する
+  - 全国展開フェーズも Cloudflare（Pages / Workers / R2）を継続し、基盤分断を避ける
+- **関連**: Issue #3 / [web-hosting-design.md](./web-hosting-design.md)

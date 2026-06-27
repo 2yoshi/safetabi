@@ -51,6 +51,7 @@ safetabi/
 - [プロジェクト引き継ぎドキュメント](./doc/HANDOFF.md)
 - [意思決定の記録](./doc/decisions.md)
 - [CDN・静的 GeoJSON 配信設計](./doc/cdn-geojson-design.md)
+- [Web アプリ ホスティング選定・設計](./doc/web-hosting-design.md)
 - [Supabase セットアップ・スキーマ定義](./supabase/README.md)
 
 ## ライセンス
