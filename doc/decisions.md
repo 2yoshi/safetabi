@@ -66,3 +66,20 @@
   - Next.js の親和性は Vercel ほど"設定ゼロ"ではなく、`@cloudflare/next-on-pages`（または OpenNext の Cloudflare アダプタ）を介する。実装は Web 標準 API / Edge ランタイムを基本とし、Node.js 固有 API への依存を最小化する
   - 全国展開フェーズも Cloudflare（Pages / Workers / R2）を継続し、基盤分断を避ける
 - **関連**: Issue #3 / [web-hosting-design.md](./web-hosting-design.md)
+
+---
+
+## 2026-06-27: API アクセス方式を Supabase 直接アクセスとする
+
+- **決定**: PoC フェーズはクライアントから **Supabase へ直接アクセス**する（PostgREST / RPC、anon キー + RLS）。中間 API レイヤーは設けない
+- **代替案**: 中間 API レイヤー（Cloudflare Pages Functions / Hono 等）を挟む構成
+- **選定理由**:
+  - PoC スコープ（東京都・公開オープンデータの閲覧）では認証・マルチテナント・レート制限が不要で、中間レイヤーはオーバースペック
+  - 公開データの読み取り制御は #9 で設定済みの RLS（SELECT のみ公開）で完結する
+  - 近傍避難所などの空間検索は PostGIS の RPC 関数に寄せれば Supabase で完結する
+  - サーバー実装が不要で PoC を最速に立ち上げられる
+- **補足・申し送り**:
+  - クライアントには anon キーのみを渡す（service_role はアプリに載せない）
+  - 移行容易性のため、クライアントのデータ取得処理は 1 モジュールに集約する
+  - 中間 API レイヤー（B）への移行トリガー: BtoG/BtoB の認証・課金、マルチテナント、複雑な認可、Supabase 非依存化。移行先は Cloudflare（Pages Functions / Workers）で基盤を分断しない
+- **関連**: Issue #4 / [api-architecture-design.md](./api-architecture-design.md)
