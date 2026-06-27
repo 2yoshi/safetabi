@@ -26,6 +26,8 @@ data-collector/
 - 差分検出（ハッシュ比較）で変更がなければストレージへの書き込みをスキップする
 - エラー時は終了コード非ゼロで返す（GitHub Actions での失敗検知のため）
 
+> フェーズ3（全国展開）の Cloudflare Workers 移行を見据えた実装上の制約事項は [doc/scaling-strategy.md](../doc/scaling-strategy.md) §5 に詳細をまとめている。
+
 ## 関連 Issue
 
 - #9 Supabase セットアップ
