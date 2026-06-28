@@ -1,0 +1,51 @@
+<!-- @dsCard group="ハザードマップ" name="オフライン時表示" subtitle="地図画像なし＋判定テキスト＋現在地" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeTabi — Offline State</title>
+<style>
+  :root{--danger:#d93f0b;--ink:#1c2530;--muted:#5b6b7b;--line:#e3e8ee}
+  *{box-sizing:border-box} body{margin:0;background:#aeb7bf;font-family:"Hiragino Sans",system-ui,sans-serif}
+  .phone{width:390px;height:760px;margin:16px auto;background:#eef1f4;position:relative;overflow:hidden;border-radius:36px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+  .offbar{background:#37424d;color:#fff;font-size:12px;padding:10px 16px;display:flex;align-items:center;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:#e8a317}
+  /* placeholder where map would be */
+  .nomap{margin:16px;height:300px;border-radius:16px;border:2px dashed #c2ccd4;background:repeating-linear-gradient(45deg,#e7ecf0 0 12px,#eef2f5 12px 24px);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);gap:8px;text-align:center;padding:0 24px}
+  .nomap .big{font-size:30px}
+  .nomap .t{font-size:13px} .nomap .s{font-size:11px}
+  /* judgment still works */
+  .card{margin:0 16px;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:16px;border-left:6px solid var(--danger)}
+  .head{display:flex;gap:12px;align-items:center}
+  .ic{width:44px;height:44px;border-radius:12px;background:rgba(217,63,11,.12);color:var(--danger);display:flex;align-items:center;justify-content:center;font-size:22px}
+  h2{margin:0;font-size:15px;color:var(--ink)} .head p{margin:2px 0 0;font-size:11.5px;color:var(--muted)}
+  .loc{margin-top:12px;font-size:12px;color:var(--ink);background:#f5f7f9;border-radius:10px;padding:10px}
+  .loc b{color:#2563eb}
+  .hint{margin:14px 16px 0;font-size:11px;color:var(--muted);line-height:1.5;text-align:center}
+  .src{position:absolute;left:16px;right:16px;bottom:14px;font-size:10px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="offbar"><span class="dot"></span> Offline — using cached hazard data / オフライン（キャッシュ利用中）</div>
+
+    <div class="nomap">
+      <div class="big">🗺️✕</div>
+      <div class="t">Map image unavailable offline</div>
+      <div class="s">オフラインのため地図は表示できません</div>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <div class="ic">⚠</div>
+        <div><h2>You are in a flood hazard zone</h2><p>浸水想定区域内にいます（キャッシュ判定）</p></div>
+      </div>
+      <div class="loc">📍 Current location: <b>35.6812, 139.7671</b> · est. depth ~3.0 m</div>
+    </div>
+
+    <p class="hint">Risk judgment works offline via cached polygons (turf.js point-in-polygon).<br>判定はキャッシュ済みポリゴンで継続します。</p>
+    <div class="src">出典（判定データ）: 国土数値情報</div>
+  </div>
+</body>
+</html>
