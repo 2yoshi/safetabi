@@ -28,8 +28,8 @@
       <div class="m">Base map &amp; hazard tiles (live tiles)</div>
       <div class="attr">
         <span class="tag">tiles</span>出典：
-        <a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a> ／
-        <a href="https://disaportal.gsi.go.jp/">ハザードマップポータルサイト</a>
+        <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener noreferrer">地理院タイル</a> ／
+        <a href="https://disaportal.gsi.go.jp/" target="_blank" rel="noopener noreferrer">ハザードマップポータルサイト</a>
       </div>
     </div>
 
@@ -39,11 +39,12 @@
       <div class="m">Self-hosted polygons used for point-in-polygon</div>
       <div class="attr">
         <span class="tag">GeoJSON</span>出典：
-        <a href="https://nlftp.mlit.go.jp/ksj/">国土数値情報（洪水浸水想定区域 等）</a>
+        <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank" rel="noopener noreferrer">国土数値情報（洪水浸水想定区域 等）</a>
       </div>
     </div>
 
-    <!-- how it looks on the map -->
+    <!-- how it looks on the map: 地図上は①オンライン出典を常時表示。
+         ②オフライン判定の出典（国土数値情報）は判定結果カード/下部シート側に併記する（map-main.html 参照） -->
     <div class="overlay">
       <div class="credit">出典: 地理院タイル / ハザードマップポータルサイト</div>
     </div>

@@ -1,4 +1,4 @@
-<!-- @dsCard group="ハザードマップ" name="凡例（多言語）" subtitle="色と意味・5段階浸水深" -->
+<!-- @dsCard group="ハザードマップ" name="凡例（多言語）" subtitle="色と意味・6段階浸水深（国土数値情報区分）" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +12,7 @@
   h3{margin:0 0 2px;font-size:14px;color:var(--ink)}
   .sub{margin:0 0 12px;font-size:11px;color:var(--muted)}
   .grp{font-size:11.5px;font-weight:700;color:var(--ink);margin:12px 0 6px}
+  .grp small{font-weight:400;color:var(--muted);font-size:10px}
   .item{display:flex;align-items:center;gap:10px;padding:5px 0}
   .sw{width:22px;height:14px;border-radius:3px;flex:0 0 auto}
   .item .t{font-size:12px;color:var(--ink)} .item .t small{color:var(--muted)}
@@ -26,12 +27,14 @@
     <h3>Legend / 凡例</h3>
     <p class="sub">Hazard types &amp; flood depth</p>
 
-    <div class="grp">Flood depth / 浸水深</div>
+    <div class="grp">Flood depth / 浸水深 <small>（国土数値情報 6 区分）</small></div>
     <div class="depthscale">
-      <i style="background:#c9e2f5"></i><i style="background:#8ec1e8"></i>
+      <i style="background:#eaf4fb"></i><i style="background:#c9e2f5"></i><i style="background:#8ec1e8"></i>
       <i style="background:#5a9bd4"></i><i style="background:#2b6cb0"></i><i style="background:#163e6b"></i>
     </div>
-    <div class="ticks"><span>&lt;0.5m</span><span>3m</span><span>5m</span><span>10m</span><span>&gt;20m</span></div>
+    <div class="ticks">
+      <span>&lt;0.5</span><span>0.5–3</span><span>3–5</span><span>5–10</span><span>10–20</span><span>≥20m</span>
+    </div>
 
     <div class="grp">Hazard type / 災害種別</div>
     <div class="item"><span class="sw" style="background:#2b6cb0"></span><span class="t">Flood <small>洪水</small></span></div>
