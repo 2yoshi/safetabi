@@ -56,6 +56,7 @@ safetabi/
 - [API サーバー構成設計](./doc/api-architecture-design.md)
 - [スケーリング方針（PoC → 全国展開）](./doc/scaling-strategy.md)
 - [現在地ハザードマップ表示の設計](./doc/hazard-map-display-design.md)
+- [全体 UI デザイン・画面設計（ワイヤーフレーム）](./doc/ui-design.md)
 - [Supabase セットアップ・スキーマ定義](./supabase/README.md)
 
 ## ライセンス

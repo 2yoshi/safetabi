@@ -1,0 +1,71 @@
+<!-- @dsCard group="全体UI" name="ホーム/マップ画面" subtitle="現在地＋リアルタイム災害アラートオーバーレイ＋下部ナビ" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeTabi — Home / Map (Wireframe)</title>
+<style>
+  :root{--ink:#1c2530;--muted:#5b6b7b;--line:#d3dae1;--danger:#d93f0b;--accent:#2563eb;--card:#fff}
+  *{box-sizing:border-box} body{margin:0;background:#aeb7bf;font-family:"Hiragino Sans",system-ui,-apple-system,sans-serif}
+  .phone{width:390px;height:844px;margin:16px auto;background:#eef1f4;position:relative;overflow:hidden;border-radius:36px;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;flex-direction:column}
+  /* status */
+  .status{height:34px;background:#dfe4ea;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:11px;color:var(--muted)}
+  /* alert overlay (top, highest priority) */
+  .alert{background:var(--danger);color:#fff;padding:12px 14px;display:flex;gap:10px;align-items:center}
+  .alert .lvl{background:#fff;color:var(--danger);font-weight:800;border-radius:6px;padding:2px 8px;font-size:12px;white-space:nowrap}
+  .alert .txt{font-size:12.5px;line-height:1.3}
+  /* map area (wireframe placeholder) */
+  .map{flex:1;position:relative;background:repeating-linear-gradient(45deg,#e7ecf0 0 14px,#eef2f5 14px 28px);display:flex;align-items:center;justify-content:center}
+  .map .ph{color:var(--muted);font-size:12px;text-align:center;line-height:1.6}
+  .pin{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);text-align:center}
+  .pin .dot{width:18px;height:18px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);margin:0 auto}
+  .pin .lbl{margin-top:4px;font-size:10px;background:#1c2530;color:#fff;padding:2px 6px;border-radius:5px}
+  .fab{position:absolute;right:14px;bottom:14px;width:46px;height:46px;border-radius:14px;background:var(--card);box-shadow:0 4px 14px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:20px}
+  .credit{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.85);font-size:9px;color:#333;padding:2px 7px;border-radius:5px}
+  /* quick risk summary */
+  .summary{background:var(--card);border-top:1px solid var(--line);padding:12px 14px;display:flex;gap:10px;align-items:center}
+  .summary .ic{width:40px;height:40px;border-radius:10px;background:rgba(217,63,11,.12);color:var(--danger);display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 auto}
+  .summary .t{font-size:13px;color:var(--ink);font-weight:700} .summary .t small{display:block;font-weight:400;font-size:11px;color:var(--muted)}
+  .summary a{margin-left:auto;font-size:12px;font-weight:700;color:#fff;background:var(--danger);text-decoration:none;padding:8px 12px;border-radius:10px}
+  /* bottom nav */
+  .nav{display:flex;background:var(--card);border-top:1px solid var(--line)}
+  .nav a{flex:1;text-decoration:none;text-align:center;padding:9px 0 12px;color:var(--muted);font-size:9.5px}
+  .nav a .i{display:block;font-size:20px;line-height:1.2}
+  .nav a.on{color:var(--accent)}
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>SafeTabi</span><span>▮▮▮ 📶</span></div>
+
+    <!-- highest-priority: realtime disaster alert overlay -->
+    <div class="alert">
+      <span class="lvl">LEVEL 4</span>
+      <span class="txt">Evacuation order — Heavy rain / flood warning in this area<br>避難指示が発令されています</span>
+    </div>
+
+    <div class="map">
+      <div class="ph">［ MAP ］<br>MapLibre GL JS<br>base: 地理院タイル</div>
+      <div class="pin"><div class="dot"></div><div class="lbl">You are here / 現在地</div></div>
+      <div class="fab" title="My location">◎</div>
+      <div class="credit">出典: 地理院タイル</div>
+    </div>
+
+    <!-- at-a-glance risk + primary action -->
+    <div class="summary">
+      <div class="ic">⚠</div>
+      <div class="t">In a flood hazard zone<br><small>浸水想定区域内 · est. depth ~3.0m</small></div>
+      <a href="#">Shelter →</a>
+    </div>
+
+    <nav class="nav">
+      <a class="on" href="#"><span class="i">🏠</span>Home<br>ホーム</a>
+      <a href="#"><span class="i">🏚️</span>Shelters<br>避難所</a>
+      <a href="#"><span class="i">⚠️</span>Hazard<br>危険度</a>
+      <a href="#"><span class="i">🔔</span>Alerts<br>速報</a>
+      <a href="#"><span class="i">⚙️</span>Settings<br>設定</a>
+    </nav>
+  </div>
+</body>
+</html>
