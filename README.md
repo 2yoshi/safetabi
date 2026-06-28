@@ -11,6 +11,7 @@ safetabi/
 ├── app/             # スマホ / Web アプリ本体（将来実装）
 ├── data-collector/  # オープンデータ自動収集スクリプト（Python）
 ├── supabase/        # DB マイグレーション（PostGIS・テーブル定義・RLS）
+├── design/          # UI モック（HTML・Claude Design 連携）
 ├── doc/             # 設計ドキュメント・引き継ぎ資料
 ├── .github/
 │   └── workflows/   # GitHub Actions（データ収集 cron 等）
@@ -54,6 +55,7 @@ safetabi/
 - [Web アプリ ホスティング選定・設計](./doc/web-hosting-design.md)
 - [API サーバー構成設計](./doc/api-architecture-design.md)
 - [スケーリング方針（PoC → 全国展開）](./doc/scaling-strategy.md)
+- [現在地ハザードマップ表示の設計](./doc/hazard-map-display-design.md)
 - [Supabase セットアップ・スキーマ定義](./supabase/README.md)
 
 ## ライセンス

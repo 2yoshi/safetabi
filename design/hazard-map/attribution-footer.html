@@ -1,0 +1,53 @@
+<!-- @dsCard group="ハザードマップ" name="出典表示" subtitle="地理院/ハザードマップポータル/国土数値情報の二系統" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeTabi — Attribution</title>
+<style>
+  :root{--ink:#1c2530;--muted:#5b6b7b;--line:#e3e8ee}
+  *{box-sizing:border-box} body{margin:0;background:#aeb7bf;font-family:"Hiragino Sans",system-ui,sans-serif;padding:24px}
+  .wrap{width:340px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+  .note{background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.16);padding:14px 16px}
+  .note h3{margin:0 0 8px;font-size:13px;color:var(--ink)}
+  .note .m{font-size:11px;color:var(--muted);margin-bottom:8px}
+  .attr{font-size:11px;color:var(--ink);line-height:1.6}
+  .attr a{color:#2563eb;text-decoration:underline}
+  .tag{display:inline-block;font-size:10px;background:#eef2f6;color:var(--muted);border-radius:4px;padding:1px 6px;margin-right:6px}
+  /* in-map overlay style */
+  .overlay{position:relative;height:70px;border-radius:14px;background:linear-gradient(135deg,#e9eef0,#dfe6e6);overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.16)}
+  .overlay .credit{position:absolute;right:8px;bottom:6px;background:rgba(255,255,255,.85);font-size:9.5px;color:#333;padding:2px 7px;border-radius:5px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Online display attribution -->
+    <div class="note">
+      <h3>① Online display / オンライン表示</h3>
+      <div class="m">Base map &amp; hazard tiles (live tiles)</div>
+      <div class="attr">
+        <span class="tag">tiles</span>出典：
+        <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener noreferrer">地理院タイル</a> ／
+        <a href="https://disaportal.gsi.go.jp/" target="_blank" rel="noopener noreferrer">ハザードマップポータルサイト</a>
+      </div>
+    </div>
+
+    <!-- Offline judgment attribution -->
+    <div class="note">
+      <h3>② Offline risk judgment / オフライン判定</h3>
+      <div class="m">Self-hosted polygons used for point-in-polygon</div>
+      <div class="attr">
+        <span class="tag">GeoJSON</span>出典：
+        <a href="https://nlftp.mlit.go.jp/ksj/" target="_blank" rel="noopener noreferrer">国土数値情報（洪水浸水想定区域 等）</a>
+      </div>
+    </div>
+
+    <!-- how it looks on the map: 地図上は①オンライン出典を常時表示。
+         ②オフライン判定の出典（国土数値情報）は判定結果カード/下部シート側に併記する（map-main.html 参照） -->
+    <div class="overlay">
+      <div class="credit">出典: 地理院タイル / ハザードマップポータルサイト</div>
+    </div>
+  </div>
+</body>
+</html>
