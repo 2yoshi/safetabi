@@ -1,0 +1,71 @@
+<!-- @dsCard group="全体UI" name="設定画面" subtitle="言語選択・通知設定・オフライン/出典" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeTabi — Settings (Wireframe)</title>
+<style>
+  :root{--ink:#1c2530;--muted:#5b6b7b;--line:#d3dae1;--accent:#2563eb;--card:#fff}
+  *{box-sizing:border-box} body{margin:0;background:#aeb7bf;font-family:"Hiragino Sans",system-ui,sans-serif}
+  .phone{width:390px;height:844px;margin:16px auto;background:#eef1f4;position:relative;overflow:hidden;border-radius:36px;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;flex-direction:column}
+  .bar{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+  .bar h1{margin:0;font-size:16px;color:var(--ink)}
+  .body{flex:1;overflow:auto;padding:14px 16px}
+  .grp{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin:14px 4px 6px}
+  .group{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .row{display:flex;align-items:center;gap:12px;padding:13px 14px;border-top:1px solid var(--line)}
+  .row:first-child{border-top:none}
+  .row .ic{width:30px;text-align:center;font-size:18px;flex:0 0 auto}
+  .row .t{font-size:13.5px;color:var(--ink)} .row .t small{display:block;font-size:11px;color:var(--muted)}
+  .row .val{margin-left:auto;font-size:12.5px;color:var(--muted)} .row .val b{color:var(--ink)}
+  /* toggle */
+  .tg{margin-left:auto;width:44px;height:26px;border-radius:13px;position:relative;flex:0 0 auto}
+  .tg .knob{position:absolute;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .tg.on{background:var(--accent)} .tg.on .knob{left:21px}
+  .tg.off{background:#cdd5dd} .tg.off .knob{left:3px}
+  .nav{display:flex;background:var(--card);border-top:1px solid var(--line)}
+  .nav a{flex:1;text-decoration:none;text-align:center;padding:9px 0 12px;color:var(--muted);font-size:9.5px}
+  .nav a .i{display:block;font-size:20px;line-height:1.2} .nav a.on{color:var(--accent)}
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="bar"><h1>Settings / 設定</h1></div>
+    <div class="body">
+
+      <div class="grp">Language / 言語</div>
+      <div class="group">
+        <div class="row"><span class="ic">🌐</span><span class="t">App language<small>表示言語</small></span><span class="val"><b>English</b> ›</span></div>
+      </div>
+
+      <div class="grp">Notifications / 通知</div>
+      <div class="group">
+        <div class="row"><span class="ic">🔔</span><span class="t">Push notifications<small>プッシュ通知（FCM/APNs）</small></span><div class="tg on"><div class="knob"></div></div></div>
+        <div class="row"><span class="ic">⚠️</span><span class="t">Level 3+ alerts only<small>警戒レベル3以上のみ</small></span><div class="tg off"><div class="knob"></div></div></div>
+        <div class="row"><span class="ic">📍</span><span class="t">Location-based alerts<small>現在地連動</small></span><div class="tg on"><div class="knob"></div></div></div>
+      </div>
+
+      <div class="grp">Offline / オフライン</div>
+      <div class="group">
+        <div class="row"><span class="ic">⬇️</span><span class="t">Cache hazard data<small>ハザード/避難所をキャッシュ</small></span><div class="tg on"><div class="knob"></div></div></div>
+        <div class="row"><span class="ic">🗂️</span><span class="t">Cached area<small>キャッシュ済みエリア</small></span><span class="val"><b>東京都</b> ›</span></div>
+      </div>
+
+      <div class="grp">About / 情報</div>
+      <div class="group">
+        <div class="row"><span class="ic">📄</span><span class="t">Data sources<small>出典（地理院/気象庁/国土数値情報）</small></span><span class="val">›</span></div>
+        <div class="row"><span class="ic">ℹ️</span><span class="t">About SafeTabi<small>バージョン情報</small></span><span class="val">v0.1 ›</span></div>
+      </div>
+
+    </div>
+    <nav class="nav">
+      <a href="#"><span class="i">🏠</span>Home<br>ホーム</a>
+      <a href="#"><span class="i">🏚️</span>Shelters<br>避難所</a>
+      <a href="#"><span class="i">⚠️</span>Hazard<br>危険度</a>
+      <a href="#"><span class="i">🔔</span>Alerts<br>速報</a>
+      <a class="on" href="#"><span class="i">⚙️</span>Settings<br>設定</a>
+    </nav>
+  </div>
+</body>
+</html>

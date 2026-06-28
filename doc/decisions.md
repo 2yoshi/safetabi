@@ -124,3 +124,13 @@
   - オフライン時は地図画像を出さず、判定テキスト＋現在地で継続
   - UI モックは `design/hazard-map/` に作成。Claude Design への同期は後回し（接続有効化後に push）
 - **関連**: Issue #22 / [hazard-map-display-design.md](./hazard-map-display-design.md) / #5 / #24 / #8 / #12
+
+---
+
+## 2026-06-28: 地図ライブラリを全アプリで MapLibre GL JS に統一する
+
+- **決定**: SafeTabi の全地図表示（ホーム/マップ・ハザード・ルート案内）で **MapLibre GL JS** を採用する。#22 のハザード画面で確定した選定を、#7 の全体 UI 設計で**アプリ全体の方針**として確定
+- **代替案**: Leaflet（軽量だがベクタ/重畳表現が弱い）、Google Maps（高機能だが従量課金でコスト方針に反する）
+- **選定理由**: OSS（API キー不要・無料）でコスト最小化方針に合致。地理院タイル＋重ねるハザードマップを重畳でき、Web/モバイル WebView で共通利用可。ブラウザ実行のため `ssr:false`（#3 制約と無関係・#23 確認済み）
+- **補足**: 全体の画面一覧・遷移図・UX 方針・ワイヤーフレームは [ui-design.md](./ui-design.md) / `design/wireframes/` に作成
+- **関連**: Issue #7 / [ui-design.md](./ui-design.md) / #22 / #3 / #8

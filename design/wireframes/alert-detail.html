@@ -1,0 +1,64 @@
+<!-- @dsCard group="全体UI" name="アラート詳細画面" subtitle="警報・避難指示の詳細＋取るべき行動（ピクトグラム）" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeTabi — Alert Detail (Wireframe)</title>
+<style>
+  :root{--ink:#1c2530;--muted:#5b6b7b;--line:#d3dae1;--danger:#d93f0b;--warn:#e8a317;--accent:#2563eb;--card:#fff}
+  *{box-sizing:border-box} body{margin:0;background:#aeb7bf;font-family:"Hiragino Sans",system-ui,sans-serif}
+  .phone{width:390px;height:844px;margin:16px auto;background:#eef1f4;position:relative;overflow:hidden;border-radius:36px;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;flex-direction:column}
+  .bar{background:var(--card);border-bottom:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;gap:10px}
+  .bar .back{font-size:18px;color:var(--ink);text-decoration:none} .bar h1{margin:0;font-size:15px;color:var(--ink)}
+  .body{flex:1;overflow:auto;padding:16px}
+  /* level banner */
+  .level{border-radius:14px;padding:16px;color:#fff;background:var(--danger)}
+  .level .l{font-size:12px;font-weight:800;letter-spacing:.04em;opacity:.9} .level h2{margin:4px 0 0;font-size:20px}
+  .level p{margin:6px 0 0;font-size:12.5px;line-height:1.4;opacity:.95}
+  .meta{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .meta span{font-size:11px;background:var(--card);border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:5px 9px}
+  /* what to do (pictograms, language-independent) */
+  .grp{margin-top:18px;font-size:13px;font-weight:700;color:var(--ink)}
+  .actions{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+  .act{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;gap:12px;align-items:center}
+  .act .pic{width:40px;height:40px;border-radius:10px;background:#eef2f6;display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto}
+  .act .t{font-size:13px;color:var(--ink)} .act .t small{display:block;font-size:11px;color:var(--muted)}
+  .cta{margin-top:18px;display:flex;gap:10px}
+  .cta a{flex:1;text-align:center;text-decoration:none;font-size:13.5px;font-weight:700;padding:12px;border-radius:12px}
+  .cta .primary{background:var(--danger);color:#fff} .cta .ghost{background:#eef2f6;color:var(--ink)}
+  .src{margin-top:14px;font-size:10px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="bar"><a class="back" href="#">‹</a><h1>Alert detail / アラート詳細</h1></div>
+    <div class="body">
+      <div class="level">
+        <div class="l">⚠ WARNING LEVEL 4 / 警戒レベル4</div>
+        <h2>Evacuation order<br>避難指示</h2>
+        <p>Heavy rain &amp; flood warning. Evacuate to a designated shelter now.<br>大雨・洪水警報。直ちに避難所へ移動してください。</p>
+      </div>
+      <div class="meta">
+        <span>📍 ◯◯区 / Tokyo</span>
+        <span>🕒 Issued 09:38</span>
+        <span>🌧️ 気象庁 JMA</span>
+      </div>
+
+      <div class="grp">What to do / 取るべき行動</div>
+      <div class="actions">
+        <div class="act"><div class="pic">🏚️</div><div class="t">Go to nearest shelter<small>最寄りの避難所へ移動</small></div></div>
+        <div class="act"><div class="pic">⛰️</div><div class="t">Avoid rivers &amp; slopes<small>河川・崖から離れる</small></div></div>
+        <div class="act"><div class="pic">🔦</div><div class="t">Take phone, water, light<small>携帯・水・明かりを持つ</small></div></div>
+      </div>
+
+      <div class="cta">
+        <a class="primary" href="#">Nearest shelter →</a>
+        <a class="ghost" href="#">View on map</a>
+      </div>
+      <div class="src">出典: 気象庁（警報・避難情報）</div>
+    </div>
+
+  </div>
+</body>
+</html>
